@@ -18,8 +18,12 @@ func main() {
 	// Create application with options
 	err := wails.Run(&options.App{
 		Title:  "Easy-Tailor",
-		Width:  1024,
-		Height: 768,
+		Width:  800,
+		Height: 350,
+		DragAndDrop: &options.DragAndDrop{
+			EnableFileDrop:     true,
+			DisableWebViewDrop: true,
+		},
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},

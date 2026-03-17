@@ -2,12 +2,18 @@ package main
 
 import (
 	"context"
-	"fmt"
+	"os"
 )
 
 // App struct
 type App struct {
 	ctx context.Context
+}
+
+type FileInfo struct {
+	Name string `json:"name"`
+	Size int64  `json:"size"`
+	Path string `json:"path"`
 }
 
 // NewApp creates a new App application struct
@@ -21,7 +27,15 @@ func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 }
 
-// Greet returns a greeting for the given name
-func (a *App) Greet(name string) string {
-	return fmt.Sprintf("Hello %s, It's show time!", name)
+func (a *App) GetFileInfo(filePath string) (*FileInfo, error) {
+	info, err := os.Stat(filePath)
+	if err != nil {
+		return &FileInfo{}, err
+	}
+
+	return &FileInfo{
+		Name: info.Name(),
+		Size: info.Size(),
+		Path: filePath,
+	}, nil
 }
