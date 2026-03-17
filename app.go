@@ -32,7 +32,7 @@ func (a *App) GetFileInfo(filePath string) (*FileInfo, error) {
 	if err != nil {
 		return &FileInfo{}, err
 	}
-
+	println("File info:", info.Name(), info.Size())
 	return &FileInfo{
 		Name: info.Name(),
 		Size: info.Size(),
