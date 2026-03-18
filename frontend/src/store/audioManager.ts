@@ -4,7 +4,7 @@ export interface AudioTrack {
   id: string;          
   filename: string;    
   filepath: string;         
-  waveform: number[];
+  waveform: number[][];
   edits:
   {
     volume: number;

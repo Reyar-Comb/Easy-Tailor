@@ -1,7 +1,9 @@
 package main
 
 import (
+	"Easy-Tailor/pkg/waveform"
 	"context"
+	"fmt"
 	"os"
 )
 
@@ -32,10 +34,14 @@ func (a *App) GetFileInfo(filePath string) (*FileInfo, error) {
 	if err != nil {
 		return &FileInfo{}, err
 	}
-	println("File info:", info.Name(), info.Size())
+	fmt.Println("File info:", info.Name(), info.Size())
 	return &FileInfo{
 		Name: info.Name(),
 		Size: info.Size(),
 		Path: filePath,
 	}, nil
+}
+
+func (a *App) AnalyzeFile(filePath string) ([][2]float64, error) {
+	return waveform.AnalyzeFile(filePath)
 }

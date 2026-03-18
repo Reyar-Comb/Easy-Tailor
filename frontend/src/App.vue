@@ -4,14 +4,16 @@ import { OnFileDrop , OnFileDropOff} from '../wailsjs/runtime/runtime';
 
 import { addTrack , currentIndex , tracks } from './store/audioManager';
 
-import { GetFileInfo } from '../wailsjs/go/main/App'
+import { GetFileInfo , AnalyzeFile } from '../wailsjs/go/main/App'
 import ActionButton from './components/TopPanel/ActionButton.vue';
 import FileNavigator from './components/TopPanel/FileNavigator.vue';
+import WaveformView from './components/TopPanel/WaveformView.vue';
+import { file } from '@babel/types';
 
 const IsDragging = ref(false);
 
 // Handle Percentage
-const topHeightPercentage = ref(60); // 默认上方占 60%
+const topHeightPercentage = ref(50); // 默认上方占 50%
 const isResizing = ref(false);
 
 const startResize = (e: MouseEvent) => {
@@ -47,19 +49,22 @@ onMounted(() => {
     for (const filepath of paths) {
       const info = await GetFileInfo(filepath)
       if (info) {
-        addTrack({
-          id: Date.now().toString(),          
-          filename: info.name, 
-          filepath: info.path,      
-          waveform: [],
-          edits:
-          {
-            volume: 50,
-            pitch: 50,
-            TrimStart: 0,
-            TrimEnd: -1
-          }
-        })
+        var waveForm = await AnalyzeFile(filepath)
+        if (waveForm) {
+          addTrack({
+            id: Date.now().toString(),          
+            filename: info.name, 
+            filepath: info.path,      
+            waveform: waveForm,
+            edits:
+            {
+              volume: 50,
+              pitch: 50,
+              TrimStart: 0,
+              TrimEnd: -1
+            }
+          })
+        }
       }
     }
     console.log('文件已添加:', paths)
@@ -98,7 +103,7 @@ onUnmounted(() => {
           </div>
 
           <div class="flex-1 w-full relative bg-blue-50 border border-blue-200 rounded-lg shadow-inner overflow-hidden">
-            <WaveformView />
+            <WaveformView :data="currentIndex >= 0 ? tracks[currentIndex]?.waveform : null" />
           </div>
         </div>
 
