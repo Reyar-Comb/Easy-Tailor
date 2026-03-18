@@ -47,7 +47,7 @@ const drawWaveform = () => {
     ctx.lineWidth = 1;
     ctx.stroke();
 
-    ctx.fillStyle = '#1d4ed8';
+    ctx.fillStyle = '#3b82f6';
 
     const dataLength = props.data!.length;
     const barWidth = rect.width / dataLength;
