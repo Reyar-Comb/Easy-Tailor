@@ -13,7 +13,7 @@ import { file } from '@babel/types';
 const IsDragging = ref(false);
 
 // Handle Percentage
-const topHeightPercentage = ref(50); // 默认上方占 50%
+const topHeightPercentage = ref(50); 
 const isResizing = ref(false);
 
 const startResize = (e: MouseEvent) => {
@@ -67,7 +67,7 @@ onMounted(() => {
         }
       }
     }
-    console.log('文件已添加:', paths)
+    console.log('added files:', paths)
   }, true);
 });
 

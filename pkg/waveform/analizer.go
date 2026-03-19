@@ -7,7 +7,10 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/gopxl/beep/v2"
+	"github.com/gopxl/beep/v2/flac"
 	"github.com/gopxl/beep/v2/mp3"
+	"github.com/gopxl/beep/v2/wav"
 )
 
 func AnalyzeFile(path string) ([][2]float64, error) {
@@ -17,10 +20,17 @@ func AnalyzeFile(path string) ([][2]float64, error) {
 	}
 	defer f.Close()
 
-	if filepath.Ext(path) != ".mp3" {
+	streamer := beep.StreamSeekCloser(nil)
+
+	if filepath.Ext(path) == ".mp3" {
+		streamer, _, err = mp3.Decode(f)
+	} else if filepath.Ext(path) == ".wav" {
+		streamer, _, err = wav.Decode(f)
+	} else if filepath.Ext(path) == ".flac" {
+		streamer, _, err = flac.Decode(f)
+	} else {
 		return nil, fmt.Errorf("unsupported file format: %s", filepath.Ext(path))
 	}
-	streamer, _, err := mp3.Decode(f)
 	if err != nil {
 		log.Fatal(err)
 	}
