@@ -54,7 +54,8 @@ onMounted(() => {
           addTrack({
             id: Date.now().toString(),          
             filename: info.name, 
-            filepath: info.path,      
+            filepath: info.path,
+            durationMs: info.durationMs ?? 0,
             waveform: waveForm,
             edits:
             {
@@ -103,7 +104,10 @@ onUnmounted(() => {
           </div>
 
           <div class="flex-1 w-full relative bg-blue-50 border border-blue-200 rounded-lg shadow-inner overflow-hidden">
-            <WaveformView :data="currentIndex >= 0 ? tracks[currentIndex]?.waveform : null" />
+            <WaveformView
+              :data="currentIndex >= 0 ? tracks[currentIndex]?.waveform : null"
+              :duration-ms="currentIndex >= 0 ? tracks[currentIndex]?.durationMs ?? 0 : 0"
+            />
           </div>
         </div>
 

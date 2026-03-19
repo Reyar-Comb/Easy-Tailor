@@ -3,7 +3,7 @@ module Easy-Tailor
 go 1.23
 
 require (
-	github.com/gopxl/beep/v2 v2.1.1
+	github.com/gopxl/beep/v2 v2.1.2-0.20250716203810-0ca406a247a7
 	github.com/wailsapp/wails/v2 v2.11.0
 )
 

@@ -3,8 +3,11 @@ import { ref, reactive } from 'vue'
 export interface AudioTrack {
   id: string;          
   filename: string;    
-  filepath: string;         
+  filepath: string;
+  durationMs: number;
   waveform: number[][];
+
+  
   edits:
   {
     volume: number;

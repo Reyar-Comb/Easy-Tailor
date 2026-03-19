@@ -32,7 +32,8 @@ func AnalyzeFile(path string) ([][2]float64, error) {
 		return nil, fmt.Errorf("unsupported file format: %s", filepath.Ext(path))
 	}
 	if err != nil {
-		log.Fatal(err)
+		fmt.Printf("Error decoding file %s: %v\n", path, err)
+		return nil, err
 	}
 	defer streamer.Close()
 
@@ -54,7 +55,7 @@ func AnalyzeFile(path string) ([][2]float64, error) {
 		if !ok {
 			break
 		}
-
+		fmt.Printf("Processing point %d: read %d samples\n", i, n)
 		maxAmplitude := [2]float64{0.0, 0.0}
 
 		for j := 0; j < n; j++ {

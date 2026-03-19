@@ -4,6 +4,7 @@ export namespace main {
 	    name: string;
 	    size: number;
 	    path: string;
+	    durationMs: number;
 	
 	    static createFrom(source: any = {}) {
 	        return new FileInfo(source);
@@ -14,6 +15,7 @@ export namespace main {
 	        this.name = source["name"];
 	        this.size = source["size"];
 	        this.path = source["path"];
+	        this.durationMs = source["durationMs"];
 	    }
 	}
 
