@@ -42,15 +42,15 @@ func AnalyzeFile(path string) ([][2]float64, error) {
 		return nil, fmt.Errorf("no audio data found in file: %s", path)
 	}
 
-	samplesPerPoint := totalSamples / 1000
+	samplesPerPoint := totalSamples / 10000
 	if samplesPerPoint == 0 {
 		samplesPerPoint = 1
 	}
 
-	waveform := make([][2]float64, 0, 1000)
+	waveform := make([][2]float64, 0, 10000)
 	buffer := make([][2]float64, samplesPerPoint)
 
-	for i := 0; i < 1000; i++ {
+	for i := 0; i < 10000; i++ {
 		n, ok := streamer.Stream(buffer)
 		if !ok {
 			break
