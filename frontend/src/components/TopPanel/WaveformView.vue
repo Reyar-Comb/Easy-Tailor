@@ -70,12 +70,7 @@ const ticks = computed(() => {
         });
     }
 
-    if (result[result.length - 1]?.x !== 100) {
-        result.push({
-            x: 100,
-            label: formatTime(durationSec),
-        });
-    }
+
 
     return result;
 });
